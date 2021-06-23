@@ -11,8 +11,11 @@ pipeline {
 
         stage('Build') {
             steps {
+                sh 'make image-base'
+                sh 'docker tag archlinux/archlinuxarm:base dasbaumwolltier/archlinuxarm:aarch64'
                 withCredentials([usernamePassword(credentialsId: CREDENTIAL_ID, usernameVariable: 'HUB_USER', passwordVariable: 'HUB_PASS')]) {
-                    sh ''
+                    sh 'echo "$HUB_PASS" | docker login --username "$HUB_USER" --password-stdin'
+                    sh 'docker push dasbaumwolltier/archlinuxarm:aarch64'
                 }
             }
         }
