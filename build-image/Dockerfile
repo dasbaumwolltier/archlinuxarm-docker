@@ -1,7 +1,7 @@
 FROM yangxuan8282/archlinuxarm
 
-RUN pacman -Suy &&\
-    pacman -S make devtools docker fakechroot fakeroot &&\
+RUN pacman -Suy --noconfirm &&\
+    pacman -S --noconfirm make devtools docker fakechroot fakeroot &&\
     mkdir /build
 
 COPY . /build
