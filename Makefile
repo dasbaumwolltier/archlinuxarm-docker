@@ -19,7 +19,7 @@ define rootfs
 	cp --recursive --preserve=timestamps --backup --suffix=.pacnew rootfs/* $(BUILDDIR)/
 
 	fakechroot -- fakeroot -- chroot $(BUILDDIR) update-ca-trust
-	fakechroot -- fakeroot -- chroot $(BUILDDIR) sh -c 'pacman-key --init && pacman-key --populate && bash -c "rm -rf etc/pacman.d/gnupg/{openpgp-revocs.d/,private-keys-v1.d/,pubring.gpg~,gnupg.S.}*"'
+	fakechroot -- fakeroot -- chroot $(BUILDDIR) sh -c 'pacman-key --init && pacman-key --populate archlinuxarm && bash -c "rm -rf etc/pacman.d/gnupg/{openpgp-revocs.d/,private-keys-v1.d/,pubring.gpg~,gnupg.S.}*"'
 
 	ln -fs /usr/lib/os-release $(BUILDDIR)/etc/os-release
 
@@ -63,8 +63,8 @@ $(OUTPUTDIR)/Dockerfile.base-devel: $(OUTPUTDIR)/base-devel.tar.zst
 
 .PHONY: docker-image-base
 image-base: $(OUTPUTDIR)/Dockerfile.base
-	${DOCKER} build -f $(OUTPUTDIR)/Dockerfile.base -t archlinux/archlinux:base $(OUTPUTDIR)
+	${DOCKER} build -f $(OUTPUTDIR)/Dockerfile.base -t archlinux/archlinuxarm:base $(OUTPUTDIR)
 
 .PHONY: docker-image-base-devel
 image-base-devel: $(OUTPUTDIR)/Dockerfile.base-devel
-	${DOCKER} build -f $(OUTPUTDIR)/Dockerfile.base-devel -t archlinux/archlinux:base-devel $(OUTPUTDIR)
+	${DOCKER} build -f $(OUTPUTDIR)/Dockerfile.base-devel -t archlinux/archlinuxarm:base-devel $(OUTPUTDIR)
