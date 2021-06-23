@@ -1,6 +1,10 @@
 pipeline {
     agent { label 'arm' }
 
+    environment {
+        CREDENTIAL_ID = 'docker-hub-upload'
+    }
+
     stages { 
         stage('Build base.tar.xz') {
             steps {
