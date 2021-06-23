@@ -1,4 +1,4 @@
-FROM yangxuan8282/archlinuxarm
+FROM dasbaumwolltier/archlinuxarm:aarch64
 
 RUN pacman -Suy --noconfirm &&\
     pacman -S --noconfirm make devtools docker fakechroot fakeroot &&\
@@ -7,4 +7,4 @@ RUN pacman -Suy --noconfirm &&\
 COPY . /build
 
 WORKDIR /build
-RUN make "$(pwd)/output/base.tar.xz" "$(pwd)/output/Dockerfile.base"
+ENTRYPOINT /usr/bin/make "$(pwd)/output/Dockerfile.base"
